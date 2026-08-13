@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DASHBOARD by SANDRA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#12141a;
+  --panel:rgba(255,255,255,0.06);
+  --panel-b:rgba(255,255,255,0.09);
+  --gold:#c9a24b;
+  --gold-dim:#8d773a;
+  --teal:#3f8f8a;
+  --text:#ece8de;
+  --muted:#9a9689;
+  --danger:#c26a5a;
+  --ok:#4fa878;
+  --wait:#d0a83a;
+  --radius:14px;
+  --shadow:0 10px 40px rgba(0,0,0,0.45);
+}
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;height:100%;}
+body{
+  font-family:'Inter',sans-serif;
+  background:radial-gradient(ellipse at 20% -10%, #23283a 0%, var(--bg) 55%) fixed;
+  color:var(--text);
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,.serif{font-family:'Playfair Display',serif;}
+::selection{background:var(--gold);color:#1a1a1a;}
+button{font-family:inherit;cursor:pointer;}
+input,select,textarea{font-family:inherit;}
+a{color:var(--gold);}
+::-webkit-scrollbar{width:9px;height:9px;}
+::-webkit-scrollbar-thumb{background:rgba(201,162,75,0.35);border-radius:8px;}
+::-webkit-scrollbar-track{background:transparent;}
+
+/* ---------- Login ---------- */
+#loginScreen{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;position:relative;overflow:hidden;}
+.bg-decor{position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:radial-gradient(600px 400px at 15% 10%, rgba(201,162,75,0.10), transparent 60%),
+             radial-gradient(500px 380px at 85% 90%, rgba(63,143,138,0.12), transparent 60%);}
+.brand{position:relative;z-index:1;text-align:center;margin-bottom:40px;}
+.monogram{width:74px;height:74px;border-radius:50%;margin:0 auto 18px;display:flex;align-items:center;justify-content:center;border:1px solid var(--panel-b);
+  background:linear-gradient(150deg, rgba(201,162,75,0.18), rgba(201,162,75,0.02));font-family:'Playfair Display',serif;font-size:32px;color:var(--gold);
+  box-shadow:0 0 0 1px rgba(201,162,75,0.12), 0 20px 40px rgba(201,162,75,0.08);animation:shimmer 5s ease-in-out infinite;}
+@keyframes shimmer{0%,100%{box-shadow:0 0 0 1px rgba(201,162,75,0.12),0 20px 40px rgba(201,162,75,0.08);}50%{box-shadow:0 0 0 1px rgba(201,162,75,0.28),0 20px 55px rgba(201,162,75,0.18);}}
+.brand h1{font-size:34px;font-weight:700;letter-spacing:0.5px;margin:0;color:var(--text);}
+.brand h1 span{color:var(--gold);}
+.brand p{color:var(--muted);margin:8px 0 0;font-size:13.5px;letter-spacing:1.5px;text-transform:uppercase;}
+.role-grid{position:relative;z-index:1;display:flex;gap:20px;flex-wrap:wrap;justify-content:center;max-width:960px;}
+.role-card{width:210px;padding:26px 20px;border-radius:var(--radius);background:var(--panel);border:1px solid var(--panel-b);text-align:center;transition:.25s;backdrop-filter:blur(6px);}
+.role-card:hover{transform:translateY(-4px);border-color:rgba(201,162,75,0.4);box-shadow:var(--shadow);}
+.role-card .ic{font-size:28px;margin-bottom:10px;}
+.role-card h3{margin:0 0 6px;font-size:18px;}
+.role-card p{margin:0 0 16px;color:var(--muted);font-size:12px;line-height:1.5;min-height:52px;}
+.role-card button{width:100%;padding:10px;border-radius:9px;border:1px solid var(--gold-dim);background:rgba(201,162,75,0.12);color:var(--gold);font-weight:600;font-size:13px;letter-spacing:.4px;transition:.2s;}
+.role-card button:hover{background:var(--gold);color:#1a1a12;}
+.login-panel{position:relative;z-index:1;margin-top:26px;width:100%;max-width:340px;background:var(--panel);border:1px solid var(--panel-b);border-radius:var(--radius);padding:22px;backdrop-filter:blur(6px);}
+.login-panel h4{margin:0 0 14px;font-size:14px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:1px;}
+.field{margin-bottom:12px;}
+.field label{display:block;font-size:12px;color:var(--muted);margin-bottom:5px;}
+.field input,.field select{width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--panel-b);background:rgba(255,255,255,0.03);color:var(--text);font-size:14px;}
+.field input:focus,.field select:focus{outline:none;border-color:var(--gold);}
+.btn-row{display:flex;gap:8px;margin-top:14px;}
+.btn{padding:10px 16px;border-radius:8px;border:1px solid var(--panel-b);background:rgba(255,255,255,0.04);color:var(--text);font-size:13.5px;font-weight:600;transition:.2s;}
+.btn:hover{border-color:var(--gold);}
+.btn-primary{background:var(--gold);color:#1a1a12;border-color:var(--gold);flex:1;}
+.btn-primary:hover{background:#dcb75c;}
+.btn-ghost{background:transparent;}
+.msg-err{color:var(--danger);font-size:12.5px;margin-top:8px;}
+.back-link{margin-top:12px;background:none;border:none;color:var(--muted);font-size:12.5px;text-decoration:underline;cursor:pointer;display:block;}
+
+/* ---------- App shell ---------- */
+#appScreen{display:none;min-height:100vh;}
+.app-bg-layer{position:fixed;inset:0;z-index:0;background-size:cover;background-position:center;filter:brightness(.72) saturate(1.05);}
+.app-bg-scrim{position:fixed;inset:0;z-index:0;background:linear-gradient(120deg, rgba(18,20,26,0.5), rgba(18,20,26,0.32));}
+.shell{position:relative;z-index:1;display:flex;min-height:100vh;}
+.sidebar{width:250px;flex-shrink:0;background:rgba(15,17,22,0.8);border-right:1px solid var(--panel-b);display:flex;flex-direction:column;padding:20px 14px;backdrop-filter:blur(10px);}
+.side-brand{display:flex;align-items:center;gap:10px;padding:6px 8px 20px;border-bottom:1px solid var(--panel-b);margin-bottom:14px;}
+.side-brand .m{width:38px;height:38px;border-radius:50%;background:linear-gradient(150deg, rgba(201,162,75,0.25), rgba(201,162,75,0.03));border:1px solid var(--panel-b);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;color:var(--gold);font-size:17px;flex-shrink:0;}
+.side-brand div b{font-size:14.5px;display:block;}
+.side-brand div span{font-size:10.5px;color:var(--muted);letter-spacing:.5px;}
+.nav{display:flex;flex-direction:column;gap:3px;overflow-y:auto;flex:1;}
+.nav-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:9px;color:var(--muted);font-size:13.5px;font-weight:500;border:1px solid transparent;background:none;text-align:left;width:100%;}
+.nav-item .ic{font-size:15px;width:18px;text-align:center;}
+.nav-item:hover{background:rgba(255,255,255,0.04);color:var(--text);}
+.nav-item.active{background:rgba(201,162,75,0.12);color:var(--gold);border-color:rgba(201,162,75,0.25);}
+.nav-item .badge{margin-left:auto;font-size:9.5px;padding:2px 6px;border-radius:20px;background:rgba(255,255,255,0.07);color:var(--muted);}
+.side-foot{border-top:1px solid var(--panel-b);padding-top:12px;margin-top:10px;display:flex;flex-direction:column;gap:6px;}
+.who{font-size:12px;color:var(--muted);padding:0 8px 4px;}
+.who b{color:var(--text);}
+.main{flex:1;min-width:0;padding:26px 34px 60px;overflow-y:auto;height:100vh;}
+.topbar{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:22px;flex-wrap:wrap;gap:10px;}
+.topbar h2{margin:0;font-size:25px;}
+.topbar .sub{color:var(--muted);font-size:12.5px;margin-top:3px;}
+.card{background:var(--panel);border:1px solid var(--panel-b);border-radius:var(--radius);padding:20px;margin-bottom:20px;backdrop-filter:blur(6px);}
+.card h3{margin:0 0 4px;font-size:16px;}
+.card .hint{color:var(--muted);font-size:11.5px;margin-bottom:14px;}
+table{width:100%;border-collapse:collapse;font-size:13px;}
+th{text-align:left;color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.4px;padding:9px 10px;border-bottom:1px solid var(--panel-b);white-space:nowrap;}
+td{padding:7px 10px;border-bottom:1px solid rgba(255,255,255,0.04);vertical-align:middle;}
+tr:hover td{background:rgba(255,255,255,0.02);}
+td input,td select,td textarea{width:100%;background:rgba(255,255,255,0.035);border:1px solid rgba(255,255,255,0.07);border-radius:6px;color:var(--text);padding:6px 8px;font-size:12.5px;min-width:80px;}
+td input:focus,td select:focus,td textarea:focus{outline:none;border-color:var(--gold);}
+.table-wrap{overflow-x:auto;}
+.row-del{background:none;border:none;color:var(--danger);font-size:15px;padding:4px;opacity:.75;}
+.row-del:hover{opacity:1;}
+.add-row-btn{margin-top:10px;padding:8px 14px;border-radius:8px;border:1px dashed var(--panel-b);background:none;color:var(--gold);font-size:12.5px;font-weight:600;}
+.add-row-btn:hover{border-color:var(--gold);background:rgba(201,162,75,0.06);}
+.badge-status{padding:4px 11px;border-radius:20px;font-size:11px;font-weight:700;border:none;letter-spacing:.3px;}
+.badge-wait{background:rgba(208,168,58,0.18);color:var(--wait);}
+.badge-done{background:rgba(79,168,120,0.18);color:var(--ok);}
+select.status-select{width:auto;min-width:96px;}
+.stat-row{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:18px;}
+.stat{flex:1;min-width:160px;background:rgba(255,255,255,0.04);border:1px solid var(--panel-b);border-radius:12px;padding:16px 18px;}
+.stat .lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;}
+.stat .val{font-size:21px;font-weight:700;font-family:'Playfair Display',serif;}
+.stat .val.pos{color:var(--ok);}
+.stat .val.neg{color:var(--danger);}
+.stat .val.gold{color:var(--gold);}
+.copy-btn{padding:5px 10px;border-radius:6px;border:1px solid var(--panel-b);background:rgba(255,255,255,0.05);color:var(--gold);font-size:11.5px;}
+.copy-btn:hover{border-color:var(--gold);}
+.rekening-card{display:flex;justify-content:space-between;align-items:center;padding:13px 15px;background:rgba(255,255,255,0.04);border:1px solid var(--panel-b);border-radius:10px;margin-bottom:9px;}
+.rekening-card .info b{display:block;font-size:14px;color:var(--gold);}
+.rekening-card .info span{font-size:12.5px;color:var(--text);}
+.rekening-card .info small{color:var(--muted);}
+.modal-bg{position:fixed;inset:0;background:rgba(8,9,12,0.72);backdrop-filter:blur(3px);z-index:50;display:flex;align-items:center;justify-content:center;padding:20px;}
+.modal{width:100%;max-width:480px;background:#181b23;border:1px solid var(--panel-b);border-radius:var(--radius);padding:24px;max-height:86vh;overflow-y:auto;box-shadow:var(--shadow);}
+.modal h3{margin-top:0;}
+.modal-close{float:right;background:none;border:none;color:var(--muted);font-size:20px;}
+.mini-list{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 4px;}
+.chip{background:rgba(255,255,255,0.06);border:1px solid var(--panel-b);padding:5px 10px;border-radius:20px;font-size:12px;display:flex;align-items:center;gap:6px;}
+.chip button{background:none;border:none;color:var(--danger);font-size:13px;}
+.thumb{width:40px;height:40px;object-fit:cover;border-radius:6px;border:1px solid var(--panel-b);cursor:pointer;}
+.empty-note{color:var(--muted);font-size:13px;padding:20px 4px;text-align:center;}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1f2430;border:1px solid var(--panel-b);padding:10px 18px;border-radius:30px;font-size:12.5px;z-index:99;box-shadow:var(--shadow);opacity:0;transition:.3s;pointer-events:none;max-width:80vw;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(-6px);}
+.hist-item{padding:8px 0;border-bottom:1px solid var(--panel-b);font-size:12.5px;}
+.hist-item b{color:var(--gold);}
+.hist-item .t{color:var(--muted);font-size:11px;}
+@media(max-width:880px){
+  .shell{flex-direction:column;}
+  .sidebar{width:100%;flex-direction:row;overflow-x:auto;padding:12px;}
+  .side-brand{display:none;}
+  .nav{flex-direction:row;overflow-x:auto;flex:none;}
+  .nav-item{white-space:nowrap;}
+  .side-foot{display:none;}
+  .main{padding:18px;height:auto;}
+}
+</style>
+</head>
+<body>
+<div class="bg-decor"></div>
+
+<!-- ===================== LOGIN SCREEN ===================== -->
+<div id="loginScreen">
+  <div class="brand">
+    <div class="monogram">S</div>
+    <h1>DASHBOARD <span>by SANDRA</span></h1>
+    <p>Pusat kendali keuangan &amp; jadwal keluarga</p>
+  </div>
+  <div class="role-grid" id="roleGrid">
+    <div class="role-card">
+      <div class="ic">👑</div><h3>ADMIN</h3>
+      <p>Akses penuh ke seluruh modul dashboard. Perlu password.</p>
+      <button onclick="showLoginForm('ADMIN')">Masuk sebagai Admin</button>
+    </div>
+    <div class="role-card">
+      <div class="ic">🧑‍💼</div><h3>USER</h3>
+      <p>Pilih nama terdaftar &amp; masuk dengan password milikmu sendiri.</p>
+      <button onclick="showLoginForm('USER')">Masuk sebagai User</button>
+    </div>
+    <div class="role-card">
+      <div class="ic">👥</div><h3>PEOPLE</h3>
+      <p>Pilih nama terdaftar &amp; masuk dengan password milikmu sendiri.</p>
+      <button onclick="showLoginForm('PEOPLE')">Masuk sebagai People</button>
+    </div>
+    <div class="role-card">
+      <div class="ic">🌐</div><h3>MEMBER</h3>
+      <p>Tanpa login. Hanya bisa melihat &amp; memakai kalkulator Rate Update.</p>
+      <button onclick="enterApp('MEMBER','Member')">Masuk sebagai Member</button>
+    </div>
+  </div>
+  <div class="login-panel" id="loginPanel" style="display:none;"></div>
+</div>
+
+<!-- ===================== APP SCREEN ===================== -->
+<div id="appScreen">
+  <div class="app-bg-layer" id="appBgLayer"></div>
+  <div class="app-bg-scrim"></div>
+  <div class="shell">
+    <div class="sidebar">
+      <div class="side-brand"><div class="m">S</div><div><b>SANDRA</b><span>DASHBOARD</span></div></div>
+      <div class="nav" id="navList"></div>
+      <div class="side-foot">
+        <div class="who">Masuk sebagai<br><b id="whoLabel"></b></div>
+        <button class="nav-item" onclick="openHistory()" id="historyNavBtn" style="display:none;"><span class="ic">🕒</span>Riwayat</button>
+        <button class="nav-item" onclick="openSettings()" id="settingsNavBtn" style="display:none;"><span class="ic">⚙️</span>Pengaturan</button>
+        <button class="nav-item" onclick="logout()"><span class="ic">↩️</span>Keluar</button>
+      </div>
+    </div>
+    <div class="main" id="mainContent"></div>
+  </div>
+</div>
+
+<div id="modalRoot"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* =========================================================
+   DASHBOARD by SANDRA — state, storage, render
+   ========================================================= */
+let DB = null;
+let session = { role:null, name:null, userId:null };
+let currentSection = null;
+const CUR = { baht:'THB', dollar:'US$', riel:'KHR' };
+
+const SECTIONS = [
+  {id:'pusatAkses', label:'Pusat Akses', icon:'🔑', roles:{ADMIN:'edit'}},
+  {id:'jadwalRslt', label:'Jadwal Rslt', icon:'📅', roles:{ADMIN:'edit'}},
+  {id:'pk', label:'PK', icon:'📌', roles:{ADMIN:'edit'}},
+  {id:'alarm', label:'Alarm', icon:'⏰', roles:{ADMIN:'edit'}},
+  {id:'kasUt', label:'KAS UT', icon:'💰', roles:{ADMIN:'edit', PEOPLE:'view'}},
+  {id:'totalGaji', label:'Total Gaji', icon:'💵', roles:{ADMIN:'edit'}},
+  {id:'rumah', label:'Rumah', icon:'🏠', roles:{ADMIN:'edit', USER:'view'}},
+  {id:'tabunganBersama', label:'Tabungan Bersama', icon:'🏦', roles:{ADMIN:'edit'}},
+  {id:'dataRekening', label:'Data Rekening', icon:'💳', roles:{ADMIN:'edit'}},
+  {id:'cuanBaht', label:'Cuan Baht', icon:'🇹🇭', roles:{ADMIN:'edit'}},
+  {id:'cuanDollar', label:'Cuan Dollar', icon:'💵', roles:{ADMIN:'edit'}},
+  {id:'cuanRiel', label:'Cuan Riel', icon:'🇰🇭', roles:{ADMIN:'edit'}},
+  {id:'rekapan', label:'Rekapan Pribadi', icon:'📊', roles:{ADMIN:'edit'}},
+  {id:'planning', label:'Planning', icon:'📝', roles:{ADMIN:'edit'}},
+  {id:'myPet', label:'My Pet', icon:'🐾', roles:{ADMIN:'edit', USER:'view'}},
+  {id:'rateUpdate', label:'Rate Update', icon:'🔄', roles:{ADMIN:'edit', USER:'calc', PEOPLE:'calc', MEMBER:'calc'}},
+];
+
+function uid(){ return Math.random().toString(36).slice(2,10); }
+function fmt(n){ n = Number(n)||0; return n.toLocaleString('id-ID',{maximumFractionDigits:2}); }
+function esc(s){ return (s??'').toString().replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function toast(msg){
+  const t=document.getElementById('toast'); t.textContent=msg; t.classList.add('show');
+  clearTimeout(window._tt); window._tt=setTimeout(()=>t.classList.remove('show'),2200);
+}
+function say(text){
+  try{ const u = new SpeechSynthesisUtterance(text); u.lang='en-US'; u.rate=0.98; u.pitch=1.02; speechSynthesis.cancel(); speechSynthesis.speak(u); }catch(e){}
+}
+function sortRows(arr, key, type){
+  const copy = [...(arr||[])];
+  copy.sort((a,b)=>{
+    let av=a?a[key]:null, bv=b?b[key]:null;
+    if(type==='number'){ return (Number(av)||0)-(Number(bv)||0); }
+    av=(av??'').toString(); bv=(bv??'').toString();
+    return av.localeCompare(bv,'id',{numeric:true, sensitivity:'base'});
+  });
+  return copy;
+}
+
+function defaultDB(){
+  return {
+    adminPassword: null,
+    wallpaper: null,
+    users: [], people: [],
+    pusatAkses: [], jadwalRslt: [], pk: [], note: [], alarm: [],
+    kasUt: [], totalGaji: [],
+    rumahDollar: [], rumahRiel: [],
+    tabunganBersama: [],
+    dataRekening: [
+      {id:uid(), jenis:'BCA', nomor:'8855279009', nama:'Vitri Andriani Sandra'},
+      {id:uid(), jenis:'MANDIRI', nomor:'1460019032288', nama:'Vitri Andriani Sandra'},
+      {id:uid(), jenis:'SEABANK', nomor:'901586752116', nama:'Vitri Andriani Sandra'},
+      {id:uid(), jenis:'SUPERBANK', nomor:'000040265613', nama:'Vitri Andrini Sandra'},
+      {id:uid(), jenis:'DANA', nomor:'0822-2671-5138', nama:'Vitri Andriani Sandraa'},
+      {id:uid(), jenis:'BANKJAGO', nomor:'103888930920', nama:'Vitri Andriani Sandra'},
+    ],
+    cuan: { baht:{pembelian:[],penjualan:[],status:[]}, dollar:{pembelian:[],penjualan:[],status:[]}, riel:{pembelian:[],penjualan:[],status:[]} },
+    rekapan: {masuk:[], keluar:[]},
+    planning: [],
+    pets: { cat: [], dog: [] },
+    rate: {baht:0, dollar:0, riel:0},
+    history: [],
+  };
+}
+async function loadDB(){
+  try{
+    const r = await window.storage.get('sandra-db', true);
+    DB = JSON.parse(r.value);
+    const d = defaultDB();
+    for(const k in d){ if(!(k in DB)) DB[k]=d[k]; }
+    if(!DB.cuan) DB.cuan = d.cuan;
+    if(!DB.rate) DB.rate = d.rate;
+    if(!DB.pets) DB.pets = d.pets;
+    if(DB.adminPassword===undefined) DB.adminPassword=null;
+    DB.users = (DB.users||[]).map(u=>({password:null, locked:false, failedAttempts:0, ...u}));
+    DB.people = (DB.people||[]).map(u=>({password:null, locked:false, failedAttempts:0, ...u}));
+  }catch(e){
+    DB = defaultDB();
+    await saveDB();
+  }
+}
+async function saveDB(){
+  try{ await window.storage.set('sandra-db', JSON.stringify(DB), true); }
+  catch(e){ console.error('save error', e); toast('Gagal menyimpan data'); }
+}
+async function mutate(fn, desc){
+  fn(DB);
+  const label = desc || (SECTIONS.find(s=>s.id===currentSection)||{}).label || 'Pengaturan';
+  DB.history = DB.history || [];
+  DB.history.unshift({id:uid(), who:`${session.name||'?'} (${session.role||'?'})`, what:label, ts:new Date().toISOString()});
+  if(DB.history.length>150) DB.history.length=150;
+  await saveDB();
+  toast(`✓ Tersimpan — ${label}`);
+  renderSection();
+}
+
+function readImageCompressed(file, maxW){
+  return new Promise((resolve,reject)=>{
+    const reader = new FileReader();
+    reader.onload = e=>{
+      const img = new Image();
+      img.onload = ()=>{
+        const scale = Math.min(1, maxW/img.width);
+        const w = Math.round(img.width*scale), h = Math.round(img.height*scale);
+        const canvas = document.createElement('canvas'); canvas.width=w; canvas.height=h;
+        canvas.getContext('2d').drawImage(img,0,0,w,h);
+        resolve(canvas.toDataURL('image/jpeg',0.72));
+      };
+      img.onerror=reject; img.src = e.target.result;
+    };
+    reader.onerror=reject; reader.readAsDataURL(file);
+  });
+}
+
+/* =========================================================
+   LOGIN
+   ========================================================= */
+function showLoginForm(role){
+  document.getElementById('roleGrid').style.opacity='0.35';
+  document.getElementById('loginPanel').style.display='block';
+  if(role==='ADMIN'){ DB.adminPassword ? renderAdminLoginForm() : renderAdminSetupForm(); }
+  else { renderNamedLoginForm(role); }
+}
+function cancelLogin(){
+  document.getElementById('loginPanel').style.display='none';
+  document.getElementById('roleGrid').style.opacity='1';
+}
+function showLoginErr(msg){ const e=document.getElementById('loginErr'); if(e) e.innerHTML=`<div class="msg-err">${esc(msg)}</div>`; }
+
+function renderAdminSetupForm(){
+  document.getElementById('loginPanel').innerHTML = `
+    <h4>Buat Password Admin</h4>
+    <div class="field"><label>Password Baru</label><input type="password" id="setupPw1" placeholder="Minimal 4 karakter"></div>
+    <div class="field"><label>Ulangi Password</label><input type="password" id="setupPw2" placeholder="Ulangi password"></div>
+    <div class="btn-row"><button class="btn btn-primary" onclick="setupAdminPassword()">Buat &amp; Masuk</button><button class="btn btn-ghost" onclick="cancelLogin()">Batal</button></div>
+    <div id="loginErr"></div>`;
+}
+function setupAdminPassword(){
+  const p1=document.getElementById('setupPw1').value, p2=document.getElementById('setupPw2').value;
+  if(p1.length<4){ showLoginErr('Password minimal 4 karakter.'); return; }
+  if(p1!==p2){ showLoginErr('Password tidak sama.'); return; }
+  DB.adminPassword=p1;
+  saveDB().then(()=>enterApp('ADMIN','Admin'));
+}
+function renderAdminLoginForm(){
+  document.getElementById('loginPanel').innerHTML = `
+    <h4>Login Admin</h4>
+    <div class="field"><label>Password</label><input type="password" id="loginPass" placeholder="Masukkan password"></div>
+    <div class="btn-row"><button class="btn btn-primary" onclick="doLoginAdmin()">Masuk</button><button class="btn btn-ghost" onclick="cancelLogin()">Batal</button></div>
+    <div id="loginErr"></div>`;
+  const el = document.getElementById('loginPass');
+  el.addEventListener('keydown', e=>{ if(e.key==='Enter') doLoginAdmin(); });
+  el.focus();
+}
+function doLoginAdmin(){
+  const pass=document.getElementById('loginPass').value;
+  if(pass===DB.adminPassword) enterApp('ADMIN','Admin');
+  else showLoginErr('Password salah, coba lagi.');
+}
+
+function renderNamedLoginForm(role){
+  const list = role==='USER'?DB.users:DB.people;
+  const panel = document.getElementById('loginPanel');
+  if(!list.length){
+    panel.innerHTML = `<h4>Login ${role}</h4><div class="msg-err">Belum ada nama terdaftar. Hubungi Admin.</div><button class="back-link" onclick="cancelLogin()">Kembali</button>`;
+    return;
+  }
+  const sorted = sortRows(list,'name');
+  const opts = sorted.map(u=>`<option value="${esc(u.id)}">${esc(u.name)}</option>`).join('');
+  panel.innerHTML = `<h4>Login ${role}</h4>
+    <div class="field"><label>Pilih Nama</label><select id="loginName" onchange="onLoginNameChange('${role}')">${opts}</select></div>
+    <div id="passArea"></div>
+    <button class="back-link" onclick="cancelLogin()">Kembali</button>`;
+  onLoginNameChange(role);
+}
+function onLoginNameChange(role){
+  const list = role==='USER'?DB.users:DB.people;
+  const id = document.getElementById('loginName').value;
+  const u = list.find(x=>x.id===id);
+  const area = document.getElementById('passArea');
+  if(!u){ area.innerHTML=''; return; }
+  if(u.locked){
+    area.innerHTML = `<div class="msg-err">🔒 Akun terkunci karena 3x salah password. Hubungi Admin untuk direset.</div>`;
+    return;
+  }
+  if(!u.password){
+    area.innerHTML = `
+      <div class="field"><label>Buat Password Baru</label><input type="password" id="newPw1" placeholder="Minimal 4 karakter"></div>
+      <div class="field"><label>Ulangi Password</label><input type="password" id="newPw2" placeholder="Ulangi password"></div>
+      <div class="btn-row"><button class="btn btn-primary" onclick="setFirstPassword('${role}','${u.id}')">Buat &amp; Masuk</button></div>
+      <div id="loginErr"></div>`;
+  } else {
+    area.innerHTML = `
+      <div class="field"><label>Password</label><input type="password" id="loginPass" placeholder="Masukkan password"></div>
+      <div class="btn-row"><button class="btn btn-primary" onclick="doLoginNamed('${role}','${u.id}')">Masuk</button></div>
+      <div id="loginErr"></div>`;
+    const el = document.getElementById('loginPass');
+    el.addEventListener('keydown', e=>{ if(e.key==='Enter') doLoginNamed(role,u.id); });
+  }
+}
+function setFirstPassword(role,id){
+  const p1=document.getElementById('newPw1').value, p2=document.getElementById('newPw2').value;
+  if(p1.length<4){ showLoginErr('Password minimal 4 karakter.'); return; }
+  if(p1!==p2){ showLoginErr('Password tidak sama.'); return; }
+  const list = role==='USER'?DB.users:DB.people;
+  const u=list.find(x=>x.id===id);
+  u.password=p1; u.failedAttempts=0; u.locked=false;
+  saveDB().then(()=>enterApp(role,u.name,false,u.id));
+}
+function doLoginNamed(role,id){
+  const pass=document.getElementById('loginPass').value;
+  const list = role==='USER'?DB.users:DB.people;
+  const u=list.find(x=>x.id===id);
+  if(u.password===pass){
+    u.failedAttempts=0;
+    saveDB().then(()=>enterApp(role,u.name,false,u.id));
+  } else {
+    u.failedAttempts=(u.failedAttempts||0)+1;
+    if(u.failedAttempts>=3){ u.locked=true; }
+    saveDB().then(()=>{
+      showLoginErr(u.locked ? '🔒 Akun terkunci karena 3x salah password. Hubungi Admin.' : `Password salah. Percobaan ke-${u.failedAttempts}/3.`);
+    });
+  }
+}
+
+async function enterApp(role, name, fromSession, userId){
+  session = {role, name, userId: userId||null};
+  document.getElementById('loginScreen').style.display='none';
+  document.getElementById('appScreen').style.display='block';
+  document.getElementById('whoLabel').textContent = `${name} · ${role}`;
+  document.getElementById('settingsNavBtn').style.display = role==='ADMIN' ? 'flex' : 'none';
+  document.getElementById('historyNavBtn').style.display = role==='ADMIN' ? 'flex' : 'none';
+  applyWallpaper();
+  buildNav();
+  const first = SECTIONS.find(s=>s.roles[role]);
+  currentSection = first ? first.id : null;
+  renderSection();
+  if(!fromSession){
+    say(role==='ADMIN' ? 'Welcome back, Admin!' : role==='MEMBER' ? 'Welcome, Member!' : `Welcome, ${name}!`);
+    try{ await window.storage.set('sandra-session', JSON.stringify(session), false); }catch(e){}
+  }
+}
+async function logout(){
+  session = {role:null, name:null, userId:null};
+  speechSynthesis.cancel();
+  try{ await window.storage.delete('sandra-session', false); }catch(e){}
+  document.getElementById('appScreen').style.display='none';
+  document.getElementById('loginScreen').style.display='flex';
+  cancelLogin();
+}
+async function trySavedSession(){
+  try{
+    const r = await window.storage.get('sandra-session', false);
+    const s = JSON.parse(r.value);
+    if(!s || !s.role) return false;
+    if(s.role==='ADMIN'){ if(DB.adminPassword){ enterApp('ADMIN','Admin', true); return true; } return false; }
+    if(s.role==='MEMBER'){ enterApp('MEMBER','Member', true); return true; }
+    const list = s.role==='USER'?DB.users:DB.people;
+    const u = list.find(x=>x.id===s.userId);
+    if(u && !u.locked && u.password){ enterApp(s.role, u.name, true, u.id); return true; }
+    return false;
+  }catch(e){ return false; }
+}
+function applyWallpaper(){
+  document.getElementById('appBgLayer').style.backgroundImage = DB.wallpaper ? `url(${DB.wallpaper})` : 'none';
+}
+
+/* =========================================================
+   NAV
+   ========================================================= */
+function buildNav(){
+  const nav = document.getElementById('navList');
+  nav.innerHTML = SECTIONS.filter(s=>s.roles[session.role]).map(s=>{
+    const access = s.roles[session.role];
+    const badge = access==='view' ? '<span class="badge">lihat</span>' : (access==='calc' ? '<span class="badge">hitung</span>' : '');
+    return `<button class="nav-item" data-sec="${s.id}" onclick="goSection('${s.id}')"><span class="ic">${s.icon}</span>${s.label}${badge}</button>`;
+  }).join('');
+}
+function goSection(id){ currentSection = id; renderSection(); }
+
+/* =========================================================
+   RENDER ROUTER
+   ========================================================= */
+function renderSection(){
+  document.querySelectorAll('.nav-item').forEach(b=>b.classList.toggle('active', b.dataset.sec===currentSection));
+  const main = document.getElementById('mainContent');
+  if(!currentSection){ main.innerHTML = `<div class="empty-note">Tidak ada modul yang bisa diakses untuk role ini.</div>`; return; }
+  const sec = SECTIONS.find(s=>s.id===currentSection);
+  const access = sec.roles[session.role];
+  main.innerHTML = `<div class="topbar"><div><h2>${sec.icon} ${sec.label}</h2><div class="sub">${accessLabel(access)}</div></div></div><div id="secBody"></div>`;
+  const body = document.getElementById('secBody');
+  const renderers = {
+    pusatAkses: renderPusatAkses, jadwalRslt: renderJadwalRslt, pk: renderPK, alarm: renderAlarm,
+    kasUt: renderKasUt, totalGaji: renderTotalGaji, rumah: renderRumah, tabunganBersama: renderTabungan,
+    dataRekening: renderRekening, cuanBaht: ()=>renderCuan('baht'), cuanDollar: ()=>renderCuan('dollar'),
+    cuanRiel: ()=>renderCuan('riel'), rekapan: renderRekapan, planning: renderPlanning,
+    myPet: renderMyPet, rateUpdate: renderRate,
+  };
+  renderers[currentSection](body, access);
+}
+function accessLabel(a){
+  if(a==='edit') return 'Kamu dapat melihat dan mengedit data ini.';
+  if(a==='view') return 'Mode lihat saja — hanya Admin yang dapat mengedit.';
+  if(a==='calc') return 'Kamu hanya dapat menghitung — rate diatur oleh Admin.';
+  return '';
+}
+
+/* =========================================================
+   GENERIC EDITABLE TABLE
+   ========================================================= */
+function editableTable(container, rows, colDefs, canEdit, onAdd, onDelete, onChange, extraColHtml, extraTh){
+  const thExtra = extraTh || '';
+  let html = `<div class="table-wrap"><table><thead><tr>`;
+  colDefs.forEach(c=> html += `<th>${c.label}</th>`);
+  html += thExtra;
+  if(canEdit) html += `<th></th>`;
+  html += `</tr></thead><tbody>`;
+  if(!rows.length){
+    html += `<tr><td colspan="${colDefs.length + (canEdit?1:0) + (thExtra?1:0)}"><div class="empty-note">Belum ada data.</div></td></tr>`;
+  }
+  rows.forEach(row=>{
+    html += `<tr data-id="${row.id}">`;
+    colDefs.forEach(c=>{
+      const v = row[c.key] ?? '';
+      if(!canEdit){ html += `<td>${esc(v)}</td>`; }
+      else if(c.type==='textarea'){ html += `<td><textarea rows="1" data-key="${c.key}" onchange="onCellChange(this)">${esc(v)}</textarea></td>`; }
+      else { html += `<td><input type="${c.type||'text'}" value="${esc(v)}" data-key="${c.key}" onchange="onCellChange(this)"></td>`; }
+    });
+    html += extraColHtml ? extraColHtml(row) : '';
+    if(canEdit) html += `<td><button class="row-del" onclick="onRowDelete('${row.id}')">✕</button></td>`;
+    html += `</tr>`;
+  });
+  html += `</tbody></table></div>`;
+  if(canEdit) html += `<button class="add-row-btn" onclick="onRowAdd()">+ Tambah baris</button>`;
+  container.innerHTML = html;
+  window.onCellChange = (el)=>{ const tr = el.closest('tr'); onChange(tr.dataset.id, el.dataset.key, el.value); };
+  window.onRowAdd = onAdd;
+  window.onRowDelete = onDelete;
+}
+function attachCell(row,key,prefix,canEdit,uploadFnName){
+  let h='';
+  if(row[key]) h+=`<img src="${row[key]}" class="thumb" onclick="window.open('${row[key]}')">`;
+  if(canEdit) h+=`<input type="file" accept="image/*" style="display:none" id="${prefix}${row.id}" onchange="${uploadFnName}('${row.id}',this)"><br><button class="copy-btn" style="margin-top:4px;" onclick="document.getElementById('${prefix}${row.id}').click()">Upload</button>`;
+  return h;
+}
+
+/* 1. PUSAT AKSES */
+function renderPusatAkses(body, access){
+  const canEdit = access==='edit';
+  body.innerHTML = `<div class="card"><h3>Pusat Akses</h3><div class="hint">Catatan akses dashboard yang telah dibagikan lewat email.</div><div id="tblPA"></div></div>`;
+  editableTable(document.getElementById('tblPA'), sortRows(DB.pusatAkses,'tanggal'),
+    [{key:'email',label:'Email'},{key:'tanggal',label:'Tanggal',type:'date'},{key:'note',label:'Catatan'}],
+    canEdit,
+    ()=>mutate(d=>d.pusatAkses.push({id:uid(),email:'',tanggal:'',note:''})),
+    (id)=>mutate(d=>d.pusatAkses=d.pusatAkses.filter(r=>r.id!==id)),
+    (id,key,val)=>mutate(d=>{const r=d.pusatAkses.find(x=>x.id===id); if(r) r[key]=val;})
+  );
+}
+
+/* 2. JADWAL RSLT */
+function renderJadwalRslt(body, access){
+  const canEdit = access==='edit';
+  body.innerHTML = `<div class="card"><h3>Jadwal Rslt</h3><div class="hint">Jadwal open/close resulan dan link terkait.</div><div id="tblJR"></div></div>`;
+  editableTable(document.getElementById('tblJR'), sortRows(DB.jadwalRslt,'jadwal'),
+    [{key:'namaPsrn',label:'Nama Psrn'},{key:'jadwal',label:'Jadwal',type:'date'},{key:'openJam',label:'Open Jam',type:'time'},{key:'closeJam',label:'Close Jam',type:'time'},{key:'link',label:'Link'}],
+    canEdit,
+    ()=>mutate(d=>d.jadwalRslt.push({id:uid(),namaPsrn:'',jadwal:'',openJam:'',closeJam:'',link:''})),
+    (id)=>mutate(d=>d.jadwalRslt=d.jadwalRslt.filter(r=>r.id!==id)),
+    (id,key,val)=>mutate(d=>{const r=d.jadwalRslt.find(x=>x.id===id); if(r) r[key]=val;}),
+    (row)=> row.link ? `<td><a href="${esc(row.link)}" target="_blank" class="copy-btn">Buka</a></td>` : `<td></td>`,
+    `<th>Link</th>`
+  );
+}
+
+/* 3. PK + NOTE */
+function renderPK(body, access){
+  const canEdit = access==='edit';
+  body.innerHTML = `<div class="card"><h3>PK (Pesan Kunci)</h3><div class="hint">Shortcut &amp; isi teks siap pakai — klik Copy untuk menyalin isi lengkap.</div><div id="tblPK"></div></div>
+    <div class="card"><h3>Note</h3><div class="hint">Catatan tambahan.</div><div id="tblNote"></div></div>`;
+  const rows = sortRows(DB.pk,'shortcut');
+  let html = `<div class="table-wrap"><table><thead><tr><th style="width:22%">Shortcut</th><th>Isi</th><th style="width:70px">Copy</th>${canEdit?'<th></th>':''}</tr></thead><tbody>`;
+  if(!rows.length) html += `<tr><td colspan="4"><div class="empty-note">Belum ada data.</div></td></tr>`;
+  rows.forEach(r=>{
+    html += `<tr data-id="${r.id}">`;
+    html += canEdit ? `<td><input value="${esc(r.shortcut)}" data-key="shortcut" onchange="onCellChange(this)"></td>` : `<td>${esc(r.shortcut)}</td>`;
+    html += canEdit ? `<td><textarea rows="2" data-key="isi" onchange="onCellChange(this)">${esc(r.isi)}</textarea></td>` : `<td style="white-space:pre-wrap;">${esc(r.isi)}</td>`;
+    html += `<td><button class="copy-btn" onclick="copyPK('${r.id}')">Copy</button></td>`;
+    if(canEdit) html += `<td><button class="row-del" onclick="onRowDelete('${r.id}')">✕</button></td>`;
+    html += `</tr>`;
+  });
+  html += `</tbody></table></div>`;
+  if(canEdit) html += `<button class="add-row-btn" onclick="onRowAdd()">+ Tambah baris</button>`;
+  document.getElementById('tblPK').innerHTML = html;
+  window.onCellChange = (el)=>{ const tr=el.closest('tr'); mutate(d=>{const r=d.pk.find(x=>x.id===tr.dataset.id); if(r) r[el.dataset.key]=el.value;}); };
+  window.onRowAdd = ()=>mutate(d=>d.pk.push({id:uid(),shortcut:'',isi:''}));
+  window.onRowDelete = (id)=>mutate(d=>d.pk=d.pk.filter(r=>r.id!==id));
+  window.copyPK = (id)=>{
+    const r = DB.pk.find(x=>x.id===id);
+    navigator.clipboard.writeText(r.isi).then(()=>toast('Isi disalin ke clipboard')).catch(()=>toast('Gagal menyalin'));
+  };
+  editableTable(document.getElementById('tblNote'), sortRows(DB.note,'tanggal'),
+    [{key:'tanggal',label:'Tanggal',type:'date'},{key:'isi',label:'Isi Note',type:'textarea'}],
+    canEdit,
+    ()=>mutate(d=>d.note.push({id:uid(),tanggal:'',isi:''}), 'Note'),
+    (id)=>mutate(d=>d.note=d.note.filter(r=>r.id!==id), 'Note'),
+    (id,key,val)=>mutate(d=>{const r=d.note.find(x=>x.id===id); if(r) r[key]=val;}, 'Note')
+  );
+}
+
+/* 4. ALARM */
+function renderAlarm(body, access){
+  const canEdit = access==='edit';
+  body.innerHTML = `<div class="card"><h3>Alarm</h3><div class="hint">Pengingat jadwal penting — urut sesuai jam, akan berbunyi otomatis saat waktunya tiba.</div><div id="tblAL"></div></div>`;
+  editableTable(document.getElementById('tblAL'), sortRows(DB.alarm,'waktu'),
+    [{key:'label',label:'Label'},{key:'tanggal',label:'Tanggal',type:'date'},{key:'waktu',label:'Waktu',type:'time'}],
+    canEdit,
+    ()=>mutate(d=>d.alarm.push({id:uid(),label:'',tanggal:'',waktu:''})),
+    (id)=>mutate(d=>d.alarm=d.alarm.filter(r=>r.id!==id)),
+    (id,key,val)=>mutate(d=>{const r=d.alarm.find(x=>x.id===id); if(r) r[key]=val;})
+  );
+}
+function checkAlarms(){
+  if(!DB || !DB.alarm) return;
+  const now = new Date();
+  const today = now.toISOString().slice(0,10);
+  const hm = now.toTimeString().slice(0,5);
+  DB.alarm.forEach(a=>{
+    if(a.tanggal===today && a.waktu===hm && a._firedAt!==hm+today){
+      a._firedAt = hm+today;
+      toast(`⏰ Alarm: ${a.label}`);
+      try{ beep(); }catch(e){}
+      say(`Alarm. ${a.label}`);
+    }
+  });
+}
+function beep(){
+  const ctx = new (window.AudioContext||window.webkitAudioContext)();
+  const o = ctx.createOscillator(); const g = ctx.createGain();
+  o.connect(g); g.connect(ctx.destination);
+  o.frequency.value = 880; g.gain.value = 0.08;
+  o.start(); setTimeout(()=>{ o.stop(); ctx.close(); }, 300);
+}
+setInterval(checkAlarms, 20000);
+
+/* 5. KAS UT */
+function renderKasUt(body, access){
+  const canEdit = access==='edit';
+  const totalMasuk = DB.kasUt.reduce((s,r)=>s+(Number(r.pemasukan)||0),0);
+  const totalKeluar = DB.kasUt.reduce((s,r)=>s+(Number(r.pengeluaran)||0),0);
+  body.innerHTML = `<div class="stat-row">
+      <div class="stat"><div class="lbl">Total Pemasukan</div><div class="val pos">Rp ${fmt(totalMasuk)}</div></div>
+      <div class="stat"><div class="lbl">Total Pengeluaran</div><div class="val neg">Rp ${fmt(totalKeluar)}</div></div>
+      <div class="stat"><div class="lbl">Saldo Kas</div><div class="val gold">Rp ${fmt(totalMasuk-totalKeluar)}</div></div>
+    </div>
+    <div class="card"><h3>KAS UT</h3><div id="tblKU"></div></div>`;
+  editableTable(document.getElementById('tblKU'), sortRows(DB.kasUt,'nama'),
+    [{key:'nama',label:'Nama'},{key:'bulan',label:'Bulan'},{key:'pemasukan',label:'Pemasukan',type:'number'},{key:'pengeluaran',label:'Pengeluaran',type:'number'},{key:'catatan',label:'Catatan'}],
+    canEdit,
+    ()=>mutate(d=>d.kasUt.push({id:uid(),nama:'',bulan:'',pemasukan:0,pengeluaran:0,catatan:''})),
+    (id)=>mutate(d=>d.kasUt=d.kasUt.filter(r=>r.id!==id)),
+    (id,key,val)=>mutate(d=>{const r=d.kasUt.find(x=>x.id===id); if(r) r[key]=val;})
+  );
+}
+
+/* 6. TOTAL GAJI */
+function renderTotalGaji(body, access){
+  const canEdit = access==='edit';
+  const total = DB.totalGaji.reduce((s,r)=>s+(Number(r.nominal)||0),0);
+  body.innerHTML = `<div class="stat-row"><div class="stat"><div class="lbl">Total Gaji</div><div class="val gold">Rp ${fmt(total)}</div></div></div>
+    <div class="card"><h3>Total Gaji</h3><div id="tblTG"></div></div>`;
+  editableTable(document.getElementById('tblTG'), sortRows(DB.totalGaji,'tanggal'),
+    [{key:'tanggal',label:'Tanggal',type:'date'},{key:'nominal',label:'Nominal',type:'number'}],
+    canEdit,
+    ()=>mutate(d=>d.totalGaji.push({id:uid(),tanggal:'',nominal:0})),
+    (id)=>mutate(d=>d.totalGaji=d.totalGaji.filter(r=>r.id!==id)),
+    (id,key,val)=>mutate(d=>{const r=d.totalGaji.find(x=>x.id===id); if(r) r[key]=val;})
+  );
+}
+
+/* 7. RUMAH — DOLLAR & RIEL */
+function renderRumah(body, access){
+  const canEdit = access==='edit';
+  body.innerHTML = `<div class="card" id="rumahDollarWrap"></div><div class="card" id="rumahRielWrap"></div>`;
+  renderRumahDollar(canEdit);
+  renderRumahRiel(canEdit);
+}
+function renderRumahDollar(canEdit){
+  const wrap = document.getElementById('rumahDollarWrap');
+  wrap.innerHTML = `<h3>Rumah — Dollar</h3><div class="hint">Tagihan rumah dalam Dollar, otomatis dibagi 2.</div><div id="tblRD"></div>`;
+  const rows = sortRows(DB.rumahDollar,'hargaRumah','number');
+  let html = `<div class="table-wrap"><table><thead><tr><th>Harga Rumah</th><th>Clean</th><th>WIFI</th><th>Total</th><th>Per Orang</th><th>Lampiran SS</th>${canEdit?'<th></th>':''}</tr></thead><tbody>`;
+  if(!rows.length) html += `<tr><td colspan="7"><div class="empty-note">Belum ada data.</div></td></tr>`;
+  rows.forEach(r=>{
+    const total=(Number(r.hargaRumah)||0)+(Number(r.clean)||0)+(Number(r.wifi)||0);
+    html += `<tr data-id="${r.id}">`;
+    if(canEdit){
+      ['hargaRumah','clean','wifi'].forEach(k=> html += `<td><input type="number" value="${r[k]??0}" data-key="${k}" onchange="onRDChange(this)"></td>`);
+    } else {
+      html += `<td>$${fmt(r.hargaRumah)}</td><td>$${fmt(r.clean)}</td><td>$${fmt(r.wifi)}</td>`;
+    }
+    html += `<td><b>$${fmt(total)}</b></td><td>$${fmt(total/2)}</td>`;
+    html += `<td>${attachCell(r,'lampiran','frd_',canEdit,'uploadRDLampiran')}</td>`;
+    if(canEdit) html += `<td><button class="row-del" onclick="delRD('${r.id}')">✕</button></td>`;
+    html += `</tr>`;
+  });
+  html += `</tbody></table></div>`;
+  if(canEdit) html += `<button class="add-row-btn" onclick="addRD()">+ Tambah baris</button>`;
+  document.getElementById('tblRD').innerHTML = html;
+  window.onRDChange=(el)=>{ const tr=el.closest('tr'); mutate(d=>{const r=d.rumahDollar.find(x=>x.id===tr.dataset.id); if(r) r[el.dataset.key]=Number(el.value);}, 'Rumah (Dollar)'); };
+  window.addRD=()=>mutate(d=>d.rumahDollar.push({id:uid(),hargaRumah:0,clean:0,wifi:0,lampiran:null}), 'Rumah (Dollar)');
+  window.delRD=(id)=>mutate(d=>d.rumahDollar=d.rumahDollar.filter(r=>r.id!==id), 'Rumah (Dollar)');
+  window.uploadRDLampiran=async(id,input)=>{
+    if(!input.files[0]) return;
+    const data=await readImageCompressed(input.files[0],900);
+    mutate(d=>{ const r=d.rumahDollar.find(x=>x.id===id); if(r) r.lampiran=data; }, 'Rumah (Dollar) - lampiran');
+  };
+}
+function renderRumahRiel(canEdit){
+  const wrap = document.getElementById('rumahRielWrap');
+  wrap.innerHTML = `<h3>Rumah — Riel</h3><div class="hint">Perhitungan listrik &amp; air, otomatis dibagi 2.</div><div id="tblRR"></div>`;
+  const rows = sortRows(DB.rumahRiel,'tanggal');
+  let html = `<div class="table-wrap"><table><thead><tr>
+    <th>Tanggal</th><th>Listrik Awal</th><th>Listrik Akhir</th><th>Pemakaian</th><th>Total Bayar Listrik</th><th>SS Listrik</th>
+    <th>Air Awal</th><th>Air Akhir</th><th>Pemakaian Air</th><th>Total Semua</th><th>Per Orang</th><th>SS</th>${canEdit?'<th></th>':''}
+  </tr></thead><tbody>`;
+  if(!rows.length) html += `<tr><td colspan="13"><div class="empty-note">Belum ada data.</div></td></tr>`;
+  rows.forEach(r=>{
+    const pemakaianListrik = (Number(r.listrikAkhir)||0)-(Number(r.listrikAwal)||0);
+    const totalBayarListrik = pemakaianListrik*730;
+    const pemakaianAir = (r.pemakaianAir!==undefined && r.pemakaianAir!==null && r.pemakaianAir!=='') ? Number(r.pemakaianAir) : ((Number(r.airAkhir)||0)-(Number(r.airAwal)||0));
+    const totalSemua = totalBayarListrik + pemakaianAir;
+    html += `<tr data-id="${r.id}">`;
+    if(canEdit){
+      html += `<td><input type="date" value="${esc(r.tanggal)}" data-key="tanggal" onchange="onRRChange(this)"></td>
+        <td><input type="number" value="${r.listrikAwal??0}" data-key="listrikAwal" onchange="onRRChange(this)"></td>
+        <td><input type="number" value="${r.listrikAkhir??0}" data-key="listrikAkhir" onchange="onRRChange(this)"></td>`;
+    } else {
+      html += `<td>${esc(r.tanggal)}</td><td>${fmt(r.listrikAwal)}</td><td>${fmt(r.listrikAkhir)}</td>`;
+    }
+    html += `<td>${fmt(pemakaianListrik)}</td><td><b>Rp ${fmt(totalBayarListrik)}</b></td>`;
+    html += `<td>${attachCell(r,'ssListrik','rr_ssl_',canEdit,'onRRUploadSSL')}</td>`;
+    if(canEdit){
+      html += `<td><input type="number" value="${r.airAwal??0}" data-key="airAwal" onchange="onRRChange(this)"></td>
+        <td><input type="number" value="${r.airAkhir??0}" data-key="airAkhir" onchange="onRRChange(this)"></td>
+        <td><input type="number" value="${pemakaianAir}" data-key="pemakaianAir" onchange="onRRChange(this)"></td>`;
+    } else {
+      html += `<td>${fmt(r.airAwal)}</td><td>${fmt(r.airAkhir)}</td><td>${fmt(pemakaianAir)}</td>`;
+    }
+    html += `<td><b>Rp ${fmt(totalSemua)}</b></td><td>Rp ${fmt(totalSemua/2)}</td>`;
+    html += `<td>${attachCell(r,'ssFinal','rr_ssf_',canEdit,'onRRUploadSSF')}</td>`;
+    if(canEdit) html += `<td><button class="row-del" onclick="delRR('${r.id}')">✕</button></td>`;
+    html += `</tr>`;
+  });
+  html += `</tbody></table></div>`;
+  if(canEdit) html += `<button class="add-row-btn" onclick="addRR()">+ Tambah baris</button>`;
+  document.getElementById('tblRR').innerHTML = html;
+  window.onRRChange=(el)=>{ const tr=el.closest('tr'); mutate(d=>{const r=d.rumahRiel.find(x=>x.id===tr.dataset.id); if(r) r[el.dataset.key]= el.type==='number'?Number(el.value):el.value;}, 'Rumah (Riel)'); };
+  window.addRR=()=>mutate(d=>d.rumahRiel.push({id:uid(),tanggal:'',listrikAwal:0,listrikAkhir:0,ssListrik:null,airAwal:0,airAkhir:0,pemakaianAir:0,ssFinal:null}), 'Rumah (Riel)');
+  window.delRR=(id)=>mutate(d=>d.rumahRiel=d.rumahRiel.filter(r=>r.id!==id), 'Rumah (Riel)');
+  window.onRRUploadSSL=async(id,input)=>{ if(!input.files[0])return; const data=await readImageCompressed(input.files[0],900); mutate(d=>{const r=d.rumahRiel.find(x=>x.id===id); if(r) r.ssListrik=data;}, 'Rumah (Riel) - SS listrik'); };
+  window.onRRUploadSSF=async(id,input)=>{ if(!input.files[0])return; const data=await readImageCompressed(input.files[0],900); mutate(d=>{const r=d.rumahRiel.find(x=>x.id===id); if(r) r.ssFinal=data;}, 'Rumah (Riel) - SS akhir'); };
+}
+
+/* 8. TABUNGAN BERSAMA */
+function renderTabungan(body, access){
+  const canEdit = access==='edit';
+  const totS = DB.tabunganBersama.reduce((s,r)=>s+(Number(r.sandra)||0),0);
+  const totA = DB.tabunganBersama.reduce((s,r)=>s+(Number(r.alex)||0),0);
+  body.innerHTML = `<div class="stat-row">
+    <div class="stat"><div class="lbl">Total Sandra</div><div class="val gold">Rp ${fmt(totS)}</div></div>
+    <div class="stat"><div class="lbl">Total Alex</div><div class="val gold">Rp ${fmt(totA)}</div></div>
+    <div class="stat"><div class="lbl">Total Keseluruhan</div><div class="val pos">Rp ${fmt(totS+totA)}</div></div>
+  </div><div class="card"><h3>Tabungan Bersama</h3><div id="tblTB"></div></div>`;
+  editableTable(document.getElementById('tblTB'), sortRows(DB.tabunganBersama,'tanggal'),
+    [{key:'tanggal',label:'Tanggal',type:'date'},{key:'sandra',label:'Nominal Sandra',type:'number'},{key:'alex',label:'Nominal Alex',type:'number'},{key:'keterangan',label:'Keterangan'}],
+    canEdit,
+    ()=>mutate(d=>d.tabunganBersama.push({id:uid(),tanggal:'',sandra:0,alex:0,keterangan:''})),
+    (id)=>mutate(d=>d.tabunganBersama=d.tabunganBersama.filter(r=>r.id!==id)),
+    (id,key,val)=>mutate(d=>{const r=d.tabunganBersama.find(x=>x.id===id); if(r) r[key]=val;})
+  );
+}
+
+/* 9. DATA REKENING */
+function renderRekening(body, access){
+  const canEdit = access==='edit';
+  let html = `<div class="card"><h3>Data Rekening</h3><div class="hint">Klik Copy untuk menyalin jenis, nomor, dan nama rekening sekaligus.</div>`;
+  sortRows(DB.dataRekening,'jenis').forEach(r=>{
+    html += `<div class="rekening-card"><div class="info"><b>${esc(r.jenis)}</b><span>${esc(r.nomor)}</span><small>${esc(r.nama)}</small></div>
+      <div style="display:flex;gap:6px;">
+      <button class="copy-btn" onclick="copyRek('${r.id}')">Copy</button>
+      ${canEdit?`<button class="row-del" onclick="editRek('${r.id}')">✎</button><button class="row-del" onclick="delRek('${r.id}')">✕</button>`:''}
+      </div></div>`;
+  });
+  if(canEdit) html += `<button class="add-row-btn" onclick="addRek()">+ Tambah rekening</button>`;
+  html += `</div>`;
+  body.innerHTML = html;
+  window.copyRek = (id)=>{
+    const r = DB.dataRekening.find(x=>x.id===id);
+    navigator.clipboard.writeText(`${r.jenis} : ${r.nomor} / ${r.nama}`).then(()=>toast('Rekening disalin')).catch(()=>toast('Gagal menyalin'));
+  };
+  window.addRek = ()=>mutate(d=>d.dataRekening.push({id:uid(),jenis:'BANK',nomor:'',nama:''}));
+  window.delRek = (id)=>mutate(d=>d.dataRekening=d.dataRekening.filter(r=>r.id!==id));
+  window.editRek = (id)=>{
+    const r = DB.dataRekening.find(x=>x.id===id);
+    openModal(`<h3>Edit Rekening<button class="modal-close" onclick="closeModal()">×</button></h3>
+      <div class="field"><label>Jenis</label><input id="mJenis" value="${esc(r.jenis)}"></div>
+      <div class="field"><label>Nomor</label><input id="mNomor" value="${esc(r.nomor)}"></div>
+      <div class="field"><label>Nama</label><input id="mNama" value="${esc(r.nama)}"></div>
+      <div class="btn-row"><button class="btn btn-primary" onclick="saveRek('${id}')">Simpan</button><button class="btn btn-ghost" onclick="closeModal()">Batal</button></div>`);
+  };
+  window.saveRek = (id)=>{
+    mutate(d=>{ const r=d.dataRekening.find(x=>x.id===id); r.jenis=document.getElementById('mJenis').value; r.nomor=document.getElementById('mNomor').value; r.nama=document.getElementById('mNama').value; });
+    closeModal();
+  };
+}
+
+/* 10-12. CUAN BAHT / DOLLAR / RIEL */
+function renderCuan(cur){
+  const body = document.getElementById('secBody');
+  const canEdit = true;
+  const data = DB.cuan[cur];
+  const symbol = CUR[cur];
+  const totBeli = data.pembelian.reduce((s,r)=>s+(Number(r.total)||0),0);
+  const totJual = data.penjualan.reduce((s,r)=>s+(Number(r.total)||0),0);
+  const untung = totJual - totBeli;
+  body.innerHTML = `<div class="stat-row">
+      <div class="stat"><div class="lbl">Total Modal (Beli)</div><div class="val neg">Rp ${fmt(totBeli)}</div></div>
+      <div class="stat"><div class="lbl">Total Penjualan</div><div class="val pos">Rp ${fmt(totJual)}</div></div>
+      <div class="stat"><div class="lbl">Keuntungan</div><div class="val gold">Rp ${fmt(untung)}</div></div>
+      <div class="stat"><div class="lbl">Keuntungan / 1000</div><div class="val gold">Rp ${fmt(untung/1000)}</div></div>
+    </div>
+    <div class="card"><h3>Pembelian (Modal) — ${symbol}</h3><div id="tblBeli"></div></div>
+    <div class="card"><h3>Penjualan — ${symbol}</h3><div id="tblJual"></div></div>
+    <div class="card"><h3>Status Transaksi</h3><div id="tblStat"></div></div>`;
+  editableTable(document.getElementById('tblBeli'), sortRows(data.pembelian,'tanggal'),
+    [{key:'tanggal',label:'Tanggal',type:'date'},{key:'totalBeli',label:`Total Beli (${symbol})`,type:'number'},{key:'rate',label:'Rate',type:'number'}],
+    canEdit,
+    ()=>mutate(d=>d.cuan[cur].pembelian.push({id:uid(),tanggal:'',totalBeli:0,rate:0})),
+    (id)=>mutate(d=>d.cuan[cur].pembelian=d.cuan[cur].pembelian.filter(r=>r.id!==id)),
+    (id,key,val)=>mutate(d=>{const r=d.cuan[cur].pembelian.find(x=>x.id===id); if(r){ r[key]=val; r.total=(Number(r.totalBeli)||0)*(Number(r.rate)||0);} }),
+    (row)=>`<td><b>Rp ${fmt((Number(row.totalBeli)||0)*(Number(row.rate)||0))}</b></td>`, `<th>Total (Rp)</th>`
+  );
+  editableTable(document.getElementById('tblJual'), sortRows(data.penjualan,'tanggal'),
+    [{key:'tanggal',label:'Tanggal',type:'date'},{key:'totalJual',label:`Total Jual (${symbol})`,type:'number'},{key:'rate',label:'Rate',type:'number'}],
+    canEdit,
+    ()=>mutate(d=>d.cuan[cur].penjualan.push({id:uid(),tanggal:'',totalJual:0,rate:0})),
+    (id)=>mutate(d=>d.cuan[cur].penjualan=d.cuan[cur].penjualan.filter(r=>r.id!==id)),
+    (id,key,val)=>mutate(d=>{const r=d.cuan[cur].penjualan.find(x=>x.id===id); if(r){ r[key]=val; r.total=(Number(r.totalJual)||0)*(Number(r.rate)||0);} }),
+    (row)=>`<td><b>Rp ${fmt((Number(row.totalJual)||0)*(Number(row.rate)||0))}</b></td>`, `<th>Total (Rp)</th>`
+  );
+  const statBody = document.getElementById('tblStat');
+  const banks = ['SEABANK','BCA','BANKJAGO'];
+  let sh = `<div class="table-wrap"><table><thead><tr><th>Tanggal</th><th>Bank</th><th>Status</th><th></th></tr></thead><tbody>`;
+  const statRows = sortRows(data.status,'tanggal');
+  if(!statRows.length) sh += `<tr><td colspan="4"><div class="empty-note">Belum ada data.</div></td></tr>`;
+  statRows.forEach(r=>{
+    sh += `<tr data-id="${r.id}">
+      <td><input type="date" value="${esc(r.tanggal)}" data-key="tanggal" onchange="onStatChange(this)"></td>
+      <td><select data-key="bank" onchange="onStatChange(this)">${banks.map(b=>`<option ${b===r.bank?'selected':''}>${b}</option>`).join('')}</select></td>
+      <td><select data-key="status" onchange="onStatChange(this)"><option value="PENDING" ${r.status==='PENDING'?'selected':''}>PENDING</option><option value="DONE" ${r.status==='DONE'?'selected':''}>DONE</option></select></td>
+      <td><button class="row-del" onclick="onStatDel('${r.id}')">✕</button></td></tr>`;
+  });
+  sh += `</tbody></table></div><button class="add-row-btn" onclick="onStatAdd()">+ Tambah baris</button>`;
+  statBody.innerHTML = sh;
+  window.onStatChange = (el)=>{ const tr=el.closest('tr'); mutate(d=>{const r=d.cuan[cur].status.find(x=>x.id===tr.dataset.id); if(r) r[el.dataset.key]=el.value;}); };
+  window.onStatAdd = ()=>mutate(d=>d.cuan[cur].status.push({id:uid(),tanggal:'',bank:banks[0],status:'PENDING'}));
+  window.onStatDel = (id)=>mutate(d=>d.cuan[cur].status=d.cuan[cur].status.filter(r=>r.id!==id));
+}
+
+/* 13. REKAPAN KEUANGAN PRIBADI */
+function renderRekapan(body, access){
+  const canEdit = access==='edit';
+  const totMasuk = DB.rekapan.masuk.reduce((s,r)=>s+(Number(r.nominal)||0),0);
+  const totKeluar = DB.rekapan.keluar.reduce((s,r)=>s+(Number(r.nominal)||0),0);
+  body.innerHTML = `<div class="stat-row">
+      <div class="stat"><div class="lbl">Total Masuk</div><div class="val pos">Rp ${fmt(totMasuk)}</div></div>
+      <div class="stat"><div class="lbl">Total Keluar</div><div class="val neg">Rp ${fmt(totKeluar)}</div></div>
+      <div class="stat"><div class="lbl">Saldo (Masuk - Keluar)</div><div class="val gold">Rp ${fmt(totMasuk-totKeluar)}</div></div>
+    </div>
+    <div class="card"><h3>Dana Masuk</h3><div id="tblMasuk"></div></div>
+    <div class="card"><h3>Dana Keluar</h3><div id="tblKeluar"></div></div>`;
+  editableTable(document.getElementById('tblMasuk'), sortRows(DB.rekapan.masuk,'tanggal'),
+    [{key:'ket',label:'Ket'},{key:'danaMasukDari',label:'Dana Masuk Dari'},{key:'tanggal',label:'Tanggal',type:'date'},{key:'nominal',label:'Nominal',type:'number'}],
+    canEdit,
+    ()=>mutate(d=>d.rekapan.masuk.push({id:uid(),ket:'',danaMasukDari:'',tanggal:'',nominal:0})),
+    (id)=>mutate(d=>d.rekapan.masuk=d.rekapan.masuk.filter(r=>r.id!==id)),
+    (id,key,val)=>mutate(d=>{const r=d.rekapan.masuk.find(x=>x.id===id); if(r) r[key]=val;})
+  );
+  editableTable(document.getElementById('tblKeluar'), sortRows(DB.rekapan.keluar,'tanggal'),
+    [{key:'ket',label:'Ket'},{key:'danaKeluarKe',label:'Dana Keluar Ke'},{key:'tanggal',label:'Tanggal',type:'date'},{key:'nominal',label:'Nominal',type:'number'}],
+    canEdit,
+    ()=>mutate(d=>d.rekapan.keluar.push({id:uid(),ket:'',danaKeluarKe:'',tanggal:'',nominal:0})),
+    (id)=>mutate(d=>d.rekapan.keluar=d.rekapan.keluar.filter(r=>r.id!==id)),
+    (id,key,val)=>mutate(d=>{const r=d.rekapan.keluar.find(x=>x.id===id); if(r) r[key]=val;})
+  );
+}
+
+/* 14. PLANNING */
+function renderPlanning(body, access){
+  const canEdit = access==='edit';
+  const rows = sortRows(DB.planning,'nama');
+  let html = `<div class="card"><h3>Planning</h3><div class="table-wrap"><table><thead><tr>
+    <th>Nama</th><th>Ket</th><th>Lampiran SS</th><th>Nominal</th><th>Centang</th>${canEdit?'<th></th>':''}
+  </tr></thead><tbody>`;
+  if(!rows.length) html += `<tr><td colspan="6"><div class="empty-note">Belum ada data.</div></td></tr>`;
+  rows.forEach(r=>{
+    html += `<tr data-id="${r.id}">`;
+    if(canEdit){
+      html += `<td><input value="${esc(r.nama)}" data-key="nama" onchange="onCellChange(this)"></td>
+        <td><input value="${esc(r.ket)}" data-key="ket" onchange="onCellChange(this)"></td>`;
+    } else {
+      html += `<td>${esc(r.nama)}</td><td>${esc(r.ket)}</td>`;
+    }
+    html += `<td>${attachCell(r,'lampiran','fp_',canEdit,'uploadLampiranPlan')}</td>`;
+    html += canEdit ? `<td><input type="number" value="${r.nominal??0}" data-key="nominal" onchange="onCellChange(this)"></td>` : `<td>Rp ${fmt(r.nominal)}</td>`;
+    html += `<td style="text-align:center;"><input type="checkbox" ${r.centang?'checked':''} ${canEdit?'':'disabled'} onchange="toggleCentang('${r.id}', this.checked)"></td>`;
+    if(canEdit) html += `<td><button class="row-del" onclick="onRowDelete('${r.id}')">✕</button></td>`;
+    html += `</tr>`;
+  });
+  html += `</tbody></table></div>`;
+  if(canEdit) html += `<button class="add-row-btn" onclick="onRowAdd()">+ Tambah baris</button>`;
+  html += `</div>`;
+  body.innerHTML = html;
+  window.onCellChange = (el)=>{ const tr=el.closest('tr'); mutate(d=>{const r=d.planning.find(x=>x.id===tr.dataset.id); if(r) r[el.dataset.key]= el.type==='number'? Number(el.value): el.value;}); };
+  window.onRowAdd = ()=>mutate(d=>d.planning.push({id:uid(),nama:'',ket:'',lampiran:null,nominal:0,centang:false}));
+  window.onRowDelete = (id)=>mutate(d=>d.planning=d.planning.filter(r=>r.id!==id));
+  window.toggleCentang = (id,val)=>mutate(d=>{const r=d.planning.find(x=>x.id===id); if(r) r.centang=val;});
+  window.uploadLampiranPlan = async (id, input)=>{
+    if(!input.files[0]) return;
+    const data = await readImageCompressed(input.files[0], 900);
+    mutate(d=>{ const r=d.planning.find(x=>x.id===id); if(r) r.lampiran=data; });
+  };
+}
+
+/* 15. MY PET */
+function renderMyPet(body, access){
+  const canEdit = access==='edit';
+  body.innerHTML = `<div class="card" id="catWrap"></div><div class="card" id="dogWrap"></div>`;
+  renderPetGroup('cat','🐱 Cat', document.getElementById('catWrap'), canEdit);
+  renderPetGroup('dog','🐶 Dog', document.getElementById('dogWrap'), canEdit);
+}
+function renderPetGroup(kind, label, wrap, canEdit){
+  const rows = sortRows(DB.pets[kind],'nama');
+  let html = `<h3>${label}</h3><div class="table-wrap"><table><thead><tr><th>Nama</th><th>Umur</th><th>Foto</th>${canEdit?'<th></th>':''}</tr></thead><tbody>`;
+  if(!rows.length) html += `<tr><td colspan="4"><div class="empty-note">Belum ada data.</div></td></tr>`;
+  rows.forEach(r=>{
+    html += `<tr data-id="${r.id}">`;
+    if(canEdit){
+      html += `<td><input value="${esc(r.nama)}" data-key="nama" onchange="onPetChange('${kind}',this)"></td>
+        <td><input value="${esc(r.umur)}" data-key="umur" onchange="onPetChange('${kind}',this)"></td>`;
+    } else {
+      html += `<td>${esc(r.nama)}</td><td>${esc(r.umur)}</td>`;
+    }
+    html += `<td>`;
+    (r.photos||[]).forEach(p=> html += `<img src="${p}" class="thumb" style="margin-right:4px;" onclick="window.open('${p}')">`);
+    if(canEdit) html += `<input type="file" accept="image/*" multiple style="display:none" id="pet_${kind}_${r.id}" onchange="uploadPetPhotos('${kind}','${r.id}',this)"><br><button class="copy-btn" style="margin-top:4px;" onclick="document.getElementById('pet_${kind}_${r.id}').click()">+ Foto</button>`;
+    html += `</td>`;
+    if(canEdit) html += `<td><button class="row-del" onclick="delPet('${kind}','${r.id}')">✕</button></td>`;
+    html += `</tr>`;
+  });
+  html += `</tbody></table></div>`;
+  if(canEdit) html += `<button class="add-row-btn" onclick="addPet('${kind}')">+ Tambah ${kind==='cat'?'Cat':'Dog'}</button>`;
+  wrap.innerHTML = html;
+  window.onPetChange=(kind,el)=>{ const tr=el.closest('tr'); mutate(d=>{const r=d.pets[kind].find(x=>x.id===tr.dataset.id); if(r) r[el.dataset.key]=el.value;}, `My Pet (${kind})`); };
+  window.addPet=(kind)=>mutate(d=>d.pets[kind].push({id:uid(),nama:'',umur:'',photos:[]}), `My Pet (${kind})`);
+  window.delPet=(kind,id)=>mutate(d=>d.pets[kind]=d.pets[kind].filter(r=>r.id!==id), `My Pet (${kind})`);
+  window.uploadPetPhotos=async(kind,id,input)=>{
+    const files = Array.from(input.files||[]);
+    if(!files.length) return;
+    const datas = await Promise.all(files.map(f=>readImageCompressed(f,700)));
+    mutate(d=>{ const r=d.pets[kind].find(x=>x.id===id); if(r){ r.photos=[...(r.photos||[]), ...datas]; } }, `My Pet (${kind}) - foto`);
+  };
+}
+
+/* 16. RATE UPDATE */
+function renderRate(body, access){
+  const canEditRate = access==='edit';
+  const currencies = [{key:'baht',label:'Rate Baht',sym:CUR.baht},{key:'dollar',label:'Rate Dollar',sym:CUR.dollar},{key:'riel',label:'Rate Riel',sym:CUR.riel}];
+  let html = '';
+  currencies.forEach(c=>{
+    html += `<div class="card"><h3>${c.label}</h3>
+      <div class="field" style="max-width:220px;"><label>Rate per ${c.sym} (Rp)</label>
+        <input type="number" id="rate_${c.key}" value="${DB.rate[c.key]||0}" ${canEditRate?'':'disabled'} onchange="setRate('${c.key}', this.value)">
+      </div>
+      <div class="field" style="max-width:220px;"><label>Jumlah ${c.sym} ingin dibeli</label>
+        <input type="number" id="calc_${c.key}" placeholder="0" oninput="calcRate('${c.key}')">
+      </div>
+      <div class="stat" style="max-width:260px;"><div class="lbl">Total Bayar</div><div class="val gold" id="out_${c.key}">Rp 0</div></div>
+    </div>`;
+  });
+  body.innerHTML = html;
+  window.setRate = (key,val)=>mutate(d=>d.rate[key]=Number(val), `Rate Update — ${key}`);
+  window.calcRate = (key)=>{
+    const rate = DB.rate[key]||0;
+    const jml = Number(document.getElementById('calc_'+key).value)||0;
+    document.getElementById('out_'+key).textContent = 'Rp ' + fmt(rate*jml);
+  };
+}
+
+/* =========================================================
+   RIWAYAT (HISTORY)
+   ========================================================= */
+function openHistory(){
+  const list = (DB.history||[]).slice(0,80);
+  const rows = list.map(h=>`<div class="hist-item"><b>${esc(h.who)}</b> — ${esc(h.what)}<br><span class="t">${new Date(h.ts).toLocaleString('id-ID')}</span></div>`).join('') || '<div class="empty-note">Belum ada riwayat.</div>';
+  openModal(`<h3>Riwayat Perubahan <button class="modal-close" onclick="closeModal()">×</button></h3>${rows}`);
+}
+
+/* =========================================================
+   SETTINGS (ADMIN ONLY)
+   ========================================================= */
+function openModal(html){
+  document.getElementById('modalRoot').innerHTML = `<div class="modal-bg" onclick="if(event.target===this) closeModal()"><div class="modal">${html}</div></div>`;
+}
+function closeModal(){ document.getElementById('modalRoot').innerHTML=''; }
+
+function openSettings(){
+  openModal(`
+    <h3>Pengaturan <button class="modal-close" onclick="closeModal()">×</button></h3>
+    <div class="field"><label>Wallpaper Dashboard</label>
+      <input type="file" id="wpInput" accept="image/*" style="display:none" onchange="uploadWallpaper(this)">
+      <button class="btn" onclick="document.getElementById('wpInput').click()">Pilih Foto</button>
+      ${DB.wallpaper ? `<button class="btn btn-ghost" onclick="clearWallpaper()">Hapus Wallpaper</button>`:''}
+    </div>
+    <div class="field"><label>Ubah Password Admin</label>
+      <input type="password" id="newPass" placeholder="Password baru">
+      <div class="btn-row"><button class="btn btn-primary" onclick="changePass()">Simpan Password</button></div>
+    </div>
+    <div class="field"><label>Kelola Nama USER (🔒 terkunci · ⏳ belum buat password)</label>
+      <div class="mini-list" id="userChips"></div>
+      <div style="display:flex;gap:6px;"><input id="newUserName" placeholder="Nama user baru"><button class="btn" onclick="addUser()">Tambah</button></div>
+    </div>
+    <div class="field"><label>Kelola Nama PEOPLE (🔒 terkunci · ⏳ belum buat password)</label>
+      <div class="mini-list" id="peopleChips"></div>
+      <div style="display:flex;gap:6px;"><input id="newPeopleName" placeholder="Nama people baru"><button class="btn" onclick="addPeople()">Tambah</button></div>
+    </div>
+  `);
+  renderChips();
+}
+function renderChips(){
+  const mk = (u, role)=>`<span class="chip">${esc(u.name)} ${u.locked?'🔒':(u.password?'':'⏳')}
+      <button onclick="resetUserPw('${role}','${u.id}')" title="Reset Password" style="color:var(--gold);">⟲</button>
+      <button onclick="${role==='USER'?'delUser':'delPeople'}('${u.id}')">✕</button>
+    </span>`;
+  document.getElementById('userChips').innerHTML = sortRows(DB.users,'name').map(u=>mk(u,'USER')).join('') || '<span style="color:var(--muted);font-size:12px;">Belum ada</span>';
+  document.getElementById('peopleChips').innerHTML = sortRows(DB.people,'name').map(u=>mk(u,'PEOPLE')).join('') || '<span style="color:var(--muted);font-size:12px;">Belum ada</span>';
+}
+function resetUserPw(role,id){
+  mutate(d=>{
+    const list = role==='USER'?d.users:d.people;
+    const u=list.find(x=>x.id===id);
+    if(u){ u.password=null; u.locked=false; u.failedAttempts=0; }
+  }, `Reset password ${role}`).then(()=>{ renderChips(); toast('Password direset — bisa membuat password baru saat login'); });
+}
+async function uploadWallpaper(input){
+  if(!input.files[0]) return;
+  const data = await readImageCompressed(input.files[0], 1600);
+  await mutate(d=>d.wallpaper=data, 'Ubah Wallpaper');
+  applyWallpaper();
+  openSettings();
+}
+function clearWallpaper(){ mutate(d=>d.wallpaper=null, 'Hapus Wallpaper').then(()=>{ applyWallpaper(); openSettings(); }); }
+function changePass(){
+  const v = document.getElementById('newPass').value.trim();
+  if(v.length<4){ toast('Password minimal 4 karakter'); return; }
+  mutate(d=>d.adminPassword=v, 'Ubah Password Admin');
+  document.getElementById('newPass').value='';
+}
+function addUser(){
+  const name = document.getElementById('newUserName').value.trim();
+  if(!name) return;
+  mutate(d=>d.users.push({id:uid(),name,password:null,locked:false,failedAttempts:0}), 'Tambah User').then(()=>{ renderChips(); document.getElementById('newUserName').value=''; buildNav(); });
+}
+function delUser(id){ mutate(d=>d.users=d.users.filter(u=>u.id!==id), 'Hapus User').then(renderChips); }
+function addPeople(){
+  const name = document.getElementById('newPeopleName').value.trim();
+  if(!name) return;
+  mutate(d=>d.people.push({id:uid(),name,password:null,locked:false,failedAttempts:0}), 'Tambah People').then(()=>{ renderChips(); document.getElementById('newPeopleName').value=''; });
+}
+function delPeople(id){ mutate(d=>d.people=d.people.filter(u=>u.id!==id), 'Hapus People').then(renderChips); }
+
+/* =========================================================
+   INIT
+   ========================================================= */
+(async function init(){
+  await loadDB();
+  await trySavedSession();
+})();
+</script>
+</body>
+</html>
